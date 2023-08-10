@@ -220,6 +220,10 @@ namespace BoletoNetCore
                     // Com Juros Mora ($)
                     var codigoMora = (boleto.ValorJurosDia != 0) ? "1" : ((boleto.PercentualJurosDia != 0) ? "2" : "0");
                     var valor = (boleto.ValorJurosDia != 0) ? boleto.ValorJurosDia : ((boleto.PercentualJurosDia != 0) ? boleto.PercentualJurosDia : 0);
+
+                    valor = valor * 30;
+                    boleto.DataJuros = boleto.DataJuros.AddDays(1);
+
                     reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0118, 001, 0, codigoMora, '0');
                     reg.Adicionar(TTiposDadoEDI.ediDataDDMMAAAA_________, 0119, 008, 0, boleto.DataJuros, '0');
                     reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0127, 015, 2, valor, '0');
@@ -332,6 +336,7 @@ namespace BoletoNetCore
                 }
 
                 var valorMulta = (codMulta == "1") ? boleto.ValorMulta : ((codMulta == "2") ? boleto.PercentualMulta : 0);
+                boleto.DataMulta = boleto.DataMulta.AddDays(1);
 
                 numeroRegistroGeral++;
                 TRegistroEDI reg = new TRegistroEDI();
