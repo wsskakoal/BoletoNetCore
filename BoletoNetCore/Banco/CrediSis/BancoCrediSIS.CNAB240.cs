@@ -90,7 +90,7 @@ namespace BoletoNetCore
                 //Dados Pagador
                 boleto.Pagador = new Pagador();
                 string str = registro.Substring(133, 15).Trim();
-                boleto.Pagador.CPFCNPJ = str.Substring(str.Length - 14, 14);
+                boleto.Pagador.CPFCNPJ = str;
                 boleto.Pagador.Nome = registro.Substring(148, 40);
 
 
